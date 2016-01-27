@@ -28,7 +28,6 @@ _start:
     mov byte [store + rbx], 1
     jmp .five
 
-
 .sum:
     inc r12
     cmp r12, limit
