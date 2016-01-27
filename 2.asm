@@ -21,9 +21,8 @@ _start:
     cmp r11, limit
     jb .inc
  
-    call printrax
-
 _end:
+    call printrax
     mov rax, SYS_EXIT
     xor rdi, rdi
     syscall
