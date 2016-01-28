@@ -2,24 +2,34 @@
 %define SYS_WRITE 1
 %define stdout 1
 %define limit 4000000
+%define end 100000000 ; run 100,000,000 times
 
 section .text
     global _start
 
 _start:
-    mov r11, 1
+    mov r14, limit
 
-.inc:
-    bt r11, 0
-    jc .skip
-    add rax, r11
+.again: 
+    inc rdx
+    cmp rdx, end
+    je _end
+    xor rax, rax
+    mov r12, 1
+    mov r13, 2
 
-.skip:
-    mov r13, r12
+.loop:
+    add rax, r13
+    mov r11, r13 ; r11 = 2
+    add r13, r12 ; r13 = 3
+    mov r12, r13 ; r12 = 3
+    add r13, r11 ; r13 = 5
+    mov r11, r13 ; r11 = 5
+    add r13, r12 ; r13 = 8
     mov r12, r11
-    add r11, r13
-    cmp r11, limit
-    jb .inc
+    cmp r13, r14
+    jb .loop
+    jmp .again
  
 _end:
     call printrax
