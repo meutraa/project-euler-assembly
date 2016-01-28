@@ -2,31 +2,59 @@
 %define SYS_WRITE 1
 %define stdout 1
 %define x 600851475143
+%define end 2
 
 section .text
     global _start
 
 _start:
-    mov rbp, 1  ; index
-    
+    mov rdi, x
+    mov r12, end
+
+    push rdi
+    fild qword [rsp]
+    fsqrt
+    fistp qword [rsp]
+    pop rsi
+.loop:
+    dec r12
+    jz _end
+    mov rbp, 1 
 .next:
-    ;cmp rbp, qword x
-    ;je _end
+    cmp rbp, rsi
+    jae .loop
     add rbp, 2	; since our x is not divisable by evens
-    mov rax, x
+    mov rax, rdi
     xor rdx, rdx
     div rbp
     cmp rdx, 0
-    jnz .next
+    jne .next
 
     ; here if x divides by rbp without remainder
-    ; is rax a prime?
+    call isprime
+    cmp rdx, 1
+    cmove r11, rax
+    je .loop
+    mov rax, rbp ; check other divisor
+    call isprime
+    cmp rdx, 1
+    cmove r11, rax
+    jmp .next
+
+_end:
+    mov rax, r11
+    call printrax  
+    mov rax, SYS_EXIT
+    xor rdi, rdi
+    syscall
+
+; preserves rax, if rax is prime, rdx set to 1
+isprime:
     push rax
     fild qword [rsp]
     fsqrt
     fistp qword [rsp]
 
-    ; TODO could check both factors found here for primality.
     pop rbx	 ; rbx is sqrt(rcx)
     mov rcx, rax ; rcx is our value to check
     mov r10, 1
@@ -37,16 +65,13 @@ _start:
     xor rdx, rdx
     div r10
     cmp rdx, 0
-    je .next
+    je .end
     cmp r10, rbx
     jne .loop
-    
+    mov rdx, 1
+.end:
     mov rax, rcx
-    call printrax  
-_end:
-    mov rax, SYS_EXIT
-    xor rdi, rdi
-    syscall
+    ret
 
 printrax:
     mov r9, 10
