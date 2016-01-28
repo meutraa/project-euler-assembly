@@ -3,40 +3,28 @@
 %define stdout 1
 %define limit 1000
 
-section .bss
-    store: resb limit
-
 section .text
     global _start
 
 _start:
-    
+    mov rcx, 5
+
 .three:
+    add rax, rbx
     add rbx, 3
     cmp rbx, limit
-    jae .next
-    mov byte [store + rbx], 1 
-    jmp .three 
-
-.next:
-    xor rbx, rbx
+    jb .three
 
 .five: 
-    add rbx, 5
-    cmp rbx, limit
-    jae .sum
-    mov byte [store + rbx], 1
-    jmp .five
+    add rax, rcx
+    add rcx, 5
+    cmp rcx, limit
+    jae _end
+    add rax, rcx
+    add rcx, 10
+    cmp rcx, limit
+    jb .five
 
-.sum:
-    inc r12
-    cmp r12, limit
-    je _end
-    cmp byte [store + r12], 0
-    je .sum
-    add rax, r12
-    jmp .sum
- 
 _end:
     call printrax
     mov rax, SYS_EXIT
