@@ -12,7 +12,7 @@ _start:
     mov rbp, x
 
 .loop:
-    add rsi, 2 ; even numbers are not prime
+    add rsi, 2 
     mov rax, rsi
     call isprime
     cmp rdx, 1
