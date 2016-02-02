@@ -1,8 +1,8 @@
-%define SYS_EXIT 60
-%define SYS_WRITE 1
-%define stdout 1
+%include "print.asm"
+%include "exit.asm"
+
 %define limit 4000000
-%define end 100000000 ; run 100,000,000 times
+%define end 2 ; repeat 
 
 section .text
     global _start
@@ -32,32 +32,7 @@ _start:
     jmp .again
  
 _end:
-    call printrax
-    mov rax, SYS_EXIT
-    xor rdi, rdi
-    syscall
+    mov rbx, rax
+    call _print
+    call _exit
 
-printrax:
-    mov r9, 10
-    mov rbp, rsp
-    push 0Ah
-
-.div:
-    xor rdx, rdx
-    div r9
-    add rdx, '0'
-    push rdx 
-    cmp rax, 0
-    jne .div
-    
-    mov rax, SYS_WRITE
-    mov rdi, stdout
-    mov rdx, 1 
-
-.print: 
-    mov rsi, rsp
-    syscall
-    add rsp, 8
-    cmp rsp, rbp
-    jne .print
-ret
