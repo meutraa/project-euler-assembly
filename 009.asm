@@ -1,17 +1,10 @@
 %include "print.asm"
 %include "exit.asm"
 
-%define loop 2
-
 section .text
     global _start
 
 _start:
-    mov rsi, loop
-
-.again:
-    dec rsi
-    jz _end
     mov rbx, 1
 
 .loop:
@@ -50,7 +43,6 @@ _start:
     add r8, r9	; r8 = c
     mul rdi
     mul r8
-    jmp .again
 
 _end:
     mov rbx, rax

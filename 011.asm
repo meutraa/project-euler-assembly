@@ -1,8 +1,6 @@
 %include "print.asm"
 %include "exit.asm"
 
-%define loop 2
-
 %macro product 1
     call getdec
     mov rax, rbx
@@ -35,21 +33,16 @@ section .text
 _start:
     mov r8, 40
     mov r9, 10
-    mov rcx, loop
     mov rbp, grid	; base
     mov rdi, rbp	; max
     add rdi, 792
-
-.again:
-    dec rcx
-    jz _end
     mov rsi, grid	; index
     jmp .horizontal
 
 .next:
     add rsi, 1
     cmp rsi, rdi
-    ja .again
+    ja _end
 
 .horizontal:
     ; get remainder mod 40

@@ -3,27 +3,23 @@
 %include "exit.asm"
 
 %define x 600851475143
-%define end 2
 
 section .text
     global _start
 
 _start:
     mov rdi, x
-    mov r12, end
+    mov rbp, 1 
 
     push rdi
     fild qword [rsp]
     fsqrt
     fistp qword [rsp]
     pop rsi
-.loop:
-    dec r12
-    jz _end
-    mov rbp, 1 
+
 .next:
     cmp rbp, rsi
-    jae .loop
+    jae _end
     add rbp, 2	; since our x is not divisable by evens
     mov rax, rdi
     xor rdx, rdx
@@ -31,18 +27,14 @@ _start:
     cmp rdx, 0
     jne .next
 
-    ; here if x divides by rbp without remainder
+    ; rbp & rax are divisors of rdi
+    mov rax, rbp
     call _isprime
     cmp rdx, 1
-    cmove r11, rax
-    je .loop
-    mov rax, rbp ; check other divisor
-    call _isprime
-    cmp rdx, 1
-    cmove r11, rax
+    jne .next
+    mov rbx, rbp
     jmp .next
 
 _end:
-    mov rbx, r11
     call _print
     call _exit
