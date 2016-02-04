@@ -45,6 +45,5 @@ _start:
     mul r8
 
 _end:
-    mov rbx, rax
-    call _print
+    print rax
     call _exit

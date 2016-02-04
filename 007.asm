@@ -24,6 +24,5 @@ _start:
     jmp .loop
 
 _end:
-    mov rbx, rsi
-    call _print
+    print rsi
     call _exit

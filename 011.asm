@@ -77,8 +77,7 @@ _start:
     jmp .next
    
 _end:
-    mov rbx, r13
-    call _print  
+    print r13
     call _exit
 
 ; put in rbx, value at rsi

@@ -36,5 +36,5 @@ _start:
     jmp .next
 
 _end:
-    call _print
+    print rbx
     call _exit

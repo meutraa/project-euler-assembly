@@ -22,6 +22,5 @@ _start:
     jnz .onc
 
 _end:
-    mov rbx, rcx
-    call _print
+    print rcx
     call _exit

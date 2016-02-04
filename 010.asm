@@ -21,6 +21,5 @@ _start:
     jmp .loop
 
 _end:
-    mov rbx, rdi
-    call _print  
+    print rdi
     call _exit

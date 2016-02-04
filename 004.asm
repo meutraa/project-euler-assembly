@@ -72,6 +72,5 @@ _start:
     jmp .incr9
 
 _end:
-    mov rbx, r12
-    call _print
+    print r12
     call _exit

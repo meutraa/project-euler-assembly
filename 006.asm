@@ -22,6 +22,5 @@ _start:
     sub rax, rdi
 
 _end:
-    mov rbx, rax
-    call _print
+    print rax
     call _exit
