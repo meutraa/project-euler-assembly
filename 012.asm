@@ -1,4 +1,5 @@
 %include "print.asm"
+%include "timer.asm"
 %include "exit.asm"
 
 %define divisors  500	; plus 1 for the first with over n + 1
@@ -8,6 +9,7 @@ section .text
     global _start
 
 _start:
+    time_start
 
 .next:
     cmp rbp, max
@@ -38,5 +40,7 @@ _start:
     jmp .loop
 
 _end:
+    time_save rax
+    print rax
     print rbx
     call _exit

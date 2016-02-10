@@ -1,4 +1,5 @@
 %include "print.asm"
+%include "timer.asm"
 %include "exit.asm"
 
 %define low 99 ; exclusive
@@ -8,6 +9,7 @@ section .text
     global _start
 
 _start:
+    time_start
     mov r10, low
     mov r12, 1	; our record
 
@@ -72,5 +74,7 @@ _start:
     jmp .incr9
 
 _end:
+    time_save rax
+    print rax
     print r12
     call _exit

@@ -1,10 +1,12 @@
 %include "print.asm"
+%include "timer.asm"
 %include "exit.asm"
 
 section .text
     global _start
 
 _start:
+    time_start
     mov r14, 4000000
     mov r12, 1
     mov r13, 2
@@ -22,6 +24,8 @@ _start:
     jb .loop
  
 _end:
+    time_save rax
+    print rax
     print rbx
     call _exit
 

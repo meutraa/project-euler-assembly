@@ -1,4 +1,5 @@
 %include "print.asm"
+%include "timer.asm"
 %include "exit.asm"
 
 %define x 20
@@ -7,6 +8,7 @@ section .text
     global _start
 
 _start:
+    time_start
     mov rcx, 0
 
 .inc:
@@ -22,5 +24,7 @@ _start:
     jnz .onc
 
 _end:
+    time_save rax
+    print rax
     print rcx
     call _exit

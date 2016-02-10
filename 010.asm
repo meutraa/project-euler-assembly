@@ -1,4 +1,5 @@
 %include "print.asm"
+%include "timer.asm"
 %include "prime.asm"
 %include "exit.asm"
 
@@ -8,6 +9,7 @@ section .text
     global _start
 
 _start:
+    time_start
     mov rsi, max ; index
 
 .loop:
@@ -21,5 +23,7 @@ _start:
     jmp .loop
 
 _end:
+    time_save rax
+    print rax
     print rdi
     call _exit

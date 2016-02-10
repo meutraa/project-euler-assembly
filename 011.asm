@@ -1,4 +1,5 @@
 %include "print.asm"
+%include "timer.asm"
 %include "exit.asm"
 
 %macro product 1
@@ -31,6 +32,7 @@ section .text
     global _start
 
 _start:
+    time_start
     mov r8, 40
     mov r9, 10
     mov rbp, grid	; base
@@ -77,6 +79,8 @@ _start:
     jmp .next
    
 _end:
+    time_save rax
+    print rax
     print r13
     call _exit
 

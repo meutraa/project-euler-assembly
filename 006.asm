@@ -1,4 +1,5 @@
 %include "print.asm"
+%include "timer.asm"
 %include "exit.asm"
 
 %define max 100
@@ -7,6 +8,7 @@ section .text
     global _start
 
 _start:
+    time_start
     mov rcx, max
 
 .sum:
@@ -22,5 +24,7 @@ _start:
     sub rax, rdi
 
 _end:
+    time_save rbx
+    print rbx
     print rax
     call _exit
