@@ -10,7 +10,7 @@ section .text
 
 _start:
     time_start
-    mov rdi, 1 ; prime count
+    mov rdi, 2 ; prime count
     mov rsi, 1 ; index
     mov rbp, x
 
