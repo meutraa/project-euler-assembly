@@ -1,4 +1,5 @@
 %include "print.asm"
+%include "timer.asm"
 %include "exit.asm"
 
 %define limit 1000
@@ -7,6 +8,7 @@ section .text
     global _start
 
 _start:
+    time_start
     mov rcx, 5
 
 .three:
@@ -26,5 +28,7 @@ _start:
     jb .five
 
 _end:
+    time_save rbx
+    print rbx
     print rax
     call _exit
