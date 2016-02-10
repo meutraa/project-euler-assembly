@@ -23,7 +23,7 @@ _start:
     jmp .loop
 
 _end:
-    time_save rax
-    print rax
+    time_save rbx
+    print rbx
     print rdi
     call _exit

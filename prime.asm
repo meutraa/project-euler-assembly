@@ -15,11 +15,6 @@ _isprime:
     mov r10, 1
     push rbx
     
-    cmp rax, 50
-    ja .large
-    mov rbx, rax
-    jmp .loop
-
 .large:
     push rax
     fild qword [rsp]
